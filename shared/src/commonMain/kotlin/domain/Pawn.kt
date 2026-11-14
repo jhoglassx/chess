@@ -16,9 +16,14 @@ class Pawn {
             return true
         }
 
-        // Primeira jogada permite mover-se duas casas para frente
-
-        if (origin.x == 1 + 5 * direction && difX == 2 * direction && difY == 0 && chessboard[destiny.x][destiny.y] == null) {
+        // Primeira jogada permite mover-se duas casas para frente.
+        // White pawns start on row 1 and black pawns on row 6 (see Chessboard.createInitialChessboard),
+        // and the square in between must be empty too: a pawn cannot jump over a piece.
+        val startRow = if (color == PieceColor.WHITE) 1 else 6
+        if (origin.x == startRow && difX == 2 * direction && difY == 0 &&
+            chessboard[origin.x + direction][origin.y] == null &&
+            chessboard[destiny.x][destiny.y] == null
+        ) {
             return true
         }
 
